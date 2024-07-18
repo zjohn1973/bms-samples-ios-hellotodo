@@ -1,92 +1,29 @@
+name: Website Build
 
-helloTodo/Podfile.lock
+on:
+  schedule:
+    - cron: '0 8 * * 4' # Every Thursday at 08:00
+    - cron: '0 8 * * 5' # Every Friday at 08:00
+    - cron: '0 8 * * 6' # Every Saturday at 08:00
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFAnalytics.h
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFAuthenticationContext.h
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFAuthenticationDelegate.h
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFAuthorizationManager.h
+    - name: Install dependencies
+      run: npm install
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFClient.h
+    - name: Build the website
+      run: npm run build
 
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFCore.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFLogger.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFLoggerMacros.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFResourceRequest.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/IMFResponse.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/OCLogger+Constants.h
-
-helloTodo/Pods/Headers/Public/IMFCore/IMFCore/WLTouchIdSecurityUtils.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/_CodeSignature/CodeDirectory
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/_CodeSignature/CodeRequirements
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/_CodeSignature/CodeResources
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/_CodeSignature/CodeSignature
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFAnalytics.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFAuthenticationContext.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFAuthenticationDelegate.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFAuthorizationManager.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFClient.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFCore.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFLogger.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFLoggerMacros.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFResourceRequest.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/IMFResponse.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/OCLogger+Constants.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Headers/WLTouchIdSecurityUtils.h
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/IMFCore
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Info.plist
-
-helloTodo/Pods/IMFCore/Frameworks/IMFCore.framework/Modules/module.modulemap
-
-helloTodo/Pods/IMFCore/License.txt
-
-helloTodo/Pods/IMFCore/README.md
-
-helloTodo/Pods/Manifest.lock
-
-helloTodo/Pods/Pods.xcodeproj/project.pbxproj
-
-helloTodo/Pods/Pods.xcodeproj/xcuserdata/Algebra.xcuserdatad/xcschemes/Pods.xcscheme
-
-helloTodo/Pods/Pods.xcodeproj/xcuserdata/Algebra.xcuserdatad/xcschemes/xcschememanagement.plist
-
-helloTodo/Pods/Target Support Files/Pods/Pods-acknowledgements.markdown
-
-helloTodo/Pods/Target Support Files/Pods/Pods-acknowledgements.plist
-
-helloTodo/Pods/Target Support Files/Pods/Pods-dummy.m
-
-helloTodo/Pods/Target Support Files/Pods/Pods-frameworks.sh
-
-helloTodo/Pods/Target Support Files/Pods/Pods-resources.sh
-
-helloTodo/Pods/Target Support Files/Pods/Pods.debug.xcconfig
-
-helloTodo/Pods/Target Support Files/Pods/Pods.release.xcconfig
-
-helloTodo/helloTodo.xcworkspace/contents.xcworkspacedata
+    - name: Deploy
+      run: npm run deploy
